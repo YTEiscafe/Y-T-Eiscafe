@@ -1,0 +1,1894 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Y&T Ice Cafe — Speisekarte</title>
+    <meta name="description"
+        content="Y&T Ice Cafe — Premium Desserts, Milkshakes, Frappés, Tee, Biosäfte und mehr. Fruchthallstr. 23, 67655 Kaiserslautern.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --bg: #050507;
+            --card: rgba(10, 10, 15, 0.9);
+            --text: #fff;
+            --muted: #e6dcc8;
+            --accent: #ff6b81;
+            --danger: #c62828;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at top, #151520 0, #050507 55%, #000 100%);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        #bg-video {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -3;
+            filter: brightness(0.25) saturate(1.1);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                radial-gradient(circle at top right, rgba(212, 175, 55, 0.25), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(255, 107, 129, 0.25), transparent 45%),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.9));
+        }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 24px;
+            position: relative;
+        }
+
+        .badge {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(14px);
+            color: #f5e7b2;
+            font-size: 13px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            color: var(--gold);
+            text-shadow: 0 0 35px rgba(212, 175, 55, 0.45);
+            letter-spacing: .08em;
+        }
+
+        header p {
+            margin-top: 14px;
+            max-width: 780px;
+            line-height: 1.8;
+            color: #f8f2e7;
+            font-size: .98rem;
+        }
+
+        .primary-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 24px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: .9rem;
+            color: #fff;
+            background: linear-gradient(135deg, #d4af37, #ff6b81);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(212, 175, 55, 0.45);
+            transform: translateY(0);
+            transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            inset: 1px;
+            border-radius: inherit;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 55%);
+            opacity: .9;
+            pointer-events: none;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), 0 0 26px rgba(212, 175, 55, 0.7);
+            filter: brightness(1.05);
+        }
+
+        .btn:active {
+            transform: translateY(1px) scale(.99);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-outline {
+            background: rgba(10, 10, 15, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn-outline::before {
+            background: radial-gradient(circle at top, rgba(212, 175, 55, 0.25), transparent 60%);
+        }
+
+        .allergy-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1000;
+            padding: 9px 18px;
+            font-size: .8rem;
+        }
+
+        .container {
+            width: min(1200px, 92%);
+            margin: auto;
+            padding: 50px 0 70px
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.1rem, 5vw, 3.4rem);
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 26px;
+        }
+
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .category-nav button {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(10, 10, 15, 0.9);
+            color: #f5f5f5;
+            font-size: .8rem;
+            cursor: pointer;
+            transition: background .18s ease, transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+
+        .category-nav button:hover {
+            background: rgba(212, 175, 55, 0.18);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+        }
+
+        .category-nav button.active {
+            background: linear-gradient(135deg, #d4af37, #ff6b81);
+            border-color: transparent;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+        }
+
+        .menu-group {
+            margin-bottom: 26px;
+            background: var(--card);
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
+            transform: translateY(18px) scale(.98);
+            opacity: 0;
+            transition: transform .6s cubic-bezier(.16, .84, .44, 1), opacity .6s ease, box-shadow .3s ease;
+        }
+
+        .menu-group.visible {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .menu-group:hover {
+            box-shadow: 0 24px 55px rgba(0, 0, 0, 0.9);
+        }
+
+        .menu-header {
+            position: relative;
+            height: 280px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .header-media {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            transition: transform .8s ease;
+        }
+
+        .menu-group:hover .header-media {
+            transform: scale(1.12);
+        }
+
+        .menu-header .media-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.15));
+            z-index: 1;
+        }
+
+        .menu-title {
+            position: absolute;
+            left: 22px;
+            bottom: 22px;
+            z-index: 2;
+        }
+
+        .menu-title h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.9rem;
+            color: var(--gold);
+            letter-spacing: .05em;
+        }
+
+        .menu-title p {
+            font-size: .85rem;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .toggle-icon {
+            position: absolute;
+            right: 22px;
+            bottom: 22px;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 60%);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.8);
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+
+        .menu-group.active .toggle-icon {
+            transform: rotate(45deg) translateY(1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+            background: radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.4), transparent 60%);
+        }
+
+        .menu-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .7s ease;
+        }
+
+        .menu-group.active .menu-content {
+            max-height: 2000px;
+        }
+
+        .menu-items {
+            padding: 22px 22px 20px;
+            display: grid;
+            gap: 12px;
+        }
+
+        @media(min-width:720px) {
+            .menu-items {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .menu-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+            transform: translateY(0);
+            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
+            border-color: rgba(212, 175, 55, 0.6);
+        }
+
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: .95rem;
+        }
+
+        .item-price {
+            color: var(--gold);
+            margin-left: 10px
+        }
+
+        .item-desc {
+            margin-top: 4px;
+            font-size: .8rem;
+            color: #dcd3c0;
+        }
+
+        .menu-item span,
+        .menu-item p {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: rgba(10, 10, 15, 0.9);
+            border-radius: 18px;
+            padding: 16px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
+            font-size: .9rem;
+            color: #f1e9d8;
+        }
+
+        .info-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            font-size: .85rem;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(10, 10, 15, 0.9);
+            transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+        }
+
+        .social-links a:hover {
+            background: rgba(212, 175, 55, 0.18);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.7);
+        }
+
+        .map-wrap {
+            margin-top: 26px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .map {
+            width: 100%;
+            height: 260px;
+            border: 0;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 18px 0 6px;
+            text-align: center;
+            font-size: .8rem;
+            color: #b9b1a0;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            width: min(420px, 92%);
+            background: rgba(10, 10, 15, 0.98);
+            border-radius: 20px;
+            padding: 20px 18px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.9);
+            position: relative;
+            animation: popIn .25s ease-out;
+        }
+
+        .modal-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--danger);
+            margin-bottom: 8px;
+        }
+
+        .modal-content p {
+            font-size: .86rem;
+            color: #f1e9d8;
+            margin-bottom: 8px;
+        }
+
+        .modal-content ul {
+            margin: 6px 0 10px 18px;
+            font-size: .8rem;
+            color: #e8ddc7;
+        }
+
+        .modal-content li {
+            margin-bottom: 3px;
+        }
+
+        .modal .btn {
+            width: 100%;
+            margin-top: 6px;
+            font-size: .9rem;
+        }
+
+        .modal .btn-outline {
+            margin-top: 8px;
+            background: rgba(10, 10, 15, 1);
+        }
+
+        .close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: translateY(10px) scale(.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .cookie-banner {
+            position: fixed;
+            left: 50%;
+            bottom: 16px;
+            transform: translateX(-50%);
+            width: min(420px, 92%);
+            background: rgba(10, 10, 15, 0.98);
+            border-radius: 18px;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 1500;
+            font-size: .8rem;
+            color: #f1e9d8;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .cookie-actions .btn {
+            padding: 7px 14px;
+            font-size: .78rem;
+            box-shadow: none;
+        }
+
+        .product:active {
+            transform: scale(0.94);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+        }
+
+        @media(max-width:640px) {
+            .badge {
+                display: none;
+            }
+
+            .menu-header {
+                height: 230px;
+            }
+
+            .allergy-btn {
+                font-size: .7rem;
+                padding: 7px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://v.ftcdn.net/17/75/54/13/240_F_1775541339_QW1T6mVMbCczrBq4QOitpkkQVXHovS72_ST.mp4"
+            type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <button class="btn btn-outline allergy-btn" type="button">
+        <span>⚠️ Allergie‑Hinweis</span>
+    </button>
+
+    <header>
+        <div class="badge">Handmade • Premium • Kaiserslautern</div>
+        <h1>Y&amp;T Ice Cafe</h1>
+        <p>Willkommen im Y&amp;T Ice Café – deinem Premium‑Spot in Kaiserslautern für Eisrollen, Milkshakes, Frappés,
+            Bubble Waffeln, Crêpes, säfte, Tee . Alles frisch, alles handmade, alles mit Liebe.</p>
+        <div class="primary-actions">
+            <button class="btn" type="button" data-scroll="#menu"><span>Zur Speisekarte</span></button>
+            <button class="btn btn-outline" type="button" data-scroll="#impressum"><span>Impressum &amp;
+                    Datenschutz</span></button>
+        </div>
+    </header>
+
+    <main class="container" id="menu">
+        <h2 class="section-title">Unsere Speisekarte</h2>
+        <p style="text-align:center;color:#e6dcc8;margin-bottom:18px;font-size:.9rem;">
+            Unsere Speisekarte bietet dir über 100 frisch zubereitete Produkte – jede Kategorie mit 12 hochwertigen
+            Artikeln.
+        </p>
+
+        <div class="category-nav">
+            <button type="button" class="active" data-scroll="#grp-eis">Eis</button>
+            <button type="button" data-scroll="#grp-eisrollen">Eisrollen</button>
+            <button type="button" data-scroll="#grp-eisbecher">Eisbecher</button>
+            <button type="button" data-scroll="#grp-milkshakes">Milkshakes</button>
+            <button type="button" data-scroll="#grp-frappes">Frappés</button>
+            <button type="button" data-scroll="#grp-cafe">Café</button>
+            <button type="button" data-scroll="#grp-crepes">Crêpes</button>
+            <button type="button" data-scroll="#grp-waffeln">Waffeln</button>
+            <button type="button" data-scroll="#grp-kuchen">Kuchen</button>
+            <button type="button" data-scroll="#grp-softdrinks"> Drinks</button>
+            <button type="button" data-scroll="#grp-bio">säfte</button>
+            <button type="button" data-scroll="#grp-tee">Tee</button>
+        </div>
+
+        <!-- Eis-->
+        <section class="menu-group visible" id="grp-eis">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1595275320712-24b6f2b0a984?q=80&w=1470&auto=format&fit=crop"
+                    alt="Cremiges Vanilleeis in Waffel" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2> Eis</h2>
+                    <p>Slush & Soft-Eis Alle Sorten – pro Kugel 2,00 € • im Becher oder in der Waffel</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+
+            <div class="menu-content">
+                <div class="menu-items">
+
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Erdbeere slusheis</span><span class="item-price">4,00 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bluebeere slusheis</span><span class="item-price">4,00 €</span>
+                        </div>
+                        <p class="item-desc">0.4ml</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bluebeere & Erdbeere slusheis Mix</span><span
+                                class="item-price">4,00 €</span></div>
+                        <p class="item-desc">0.4ml</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>softeis Vanilla</span><span class="item-price">3,99 €</span></div>
+                        <p class="item-desc">Mit Waffel</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>softeis Vanilla</span><span class="item-price">6,50 €</span></div>
+                        <p class="item-desc">Mit Becher</p>
+                    </article>
+
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>softeis Schoko</span><span class="item-price">3,99 €</span></div>
+                        <p class="item-desc">mit Waffel </p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>softeis schoko</span><span class="item-price">6,50 €</span></div>
+                        <p class="item-desc">Mit Becher</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Schoko & Vanilla softeis Mix</span><span class="item-price">3,99
+                                €</span></div>
+                        <p class="item-desc">Mit Waffel</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Schoko & Vanilla softeis Mix</span><span class="item-price">6,50
+                                €</span></div>
+                        <p class="item-desc">Mit Becher</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Vanille</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Stracciatella</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc">Mit Schokostückchen.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Pistazie</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Erdbeere</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Mango</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Zitrone</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kokos</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Haselnuss</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Banane</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cookie</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Eisrollen -->
+        <section class="menu-group" id="grp-eisrollen">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1641665273583-45bfc9f3d292?q=80&w=774&auto=format&fit=crop"
+                    alt="Eisrollen mit Toppings" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Eisrollen</h2>
+                    <p>Frisch gerollt auf der Eisplatte.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Erdbeer Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">Mit frischen Erdbeeren.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>kiwi Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">Mit frischen Kiwis.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Frucht ice Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>himbeere Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>banane Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>ananas Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Mango Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>waldfrucht Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Oreo Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kinderbueno Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>loutos Roll</span><span class="item-price">10,49€</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Nutella Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kitkat Roll</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Pistazien Roll</span><span class="item-price">10,49 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>karamell Roll</span><span class="item-price">10,49 €</span>
+                        </div>
+                        <p class="item-desc"></p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>vanilla Roll</span><span class="item-price">10,49 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eisbecher -->
+        <section class="menu-group" id="grp-eisbecher">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1568464774940-a3de36f824a5?q=80&w=774&auto=format&fit=crop"
+                    alt="Eisbecher mit Früchten" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Eisbecher</h2>
+                    <p>Große Becher mit Toppings.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Erdbeerbecher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mit Erdbeeren & Sahne.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Oreo Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mit Oreo & Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Ananas Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mit Oreo & Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Nutella Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mit Oreo & Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Banana Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Banane & Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Lotus Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Lotus Creme & Keks.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Pistazien Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Dreifach Schokolade.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Vanille Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Vanille & Früchte.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Mango Becher</span><span class="item-price">8,49€</span></div>
+                        <p class="item-desc">Beeren & Mango.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kinder Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mit Smarties.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Caramel Becher</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Karamell & Sahne.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>kitkat Becher</span><span class="item-price">8,49€</span></div>
+                        <p class="item-desc">Mit Blaubeeren.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kinderbueno Becher</span><span class="item-price">8,49 €</span>
+                        </div>
+                        <p class="item-desc">Mit Nutella.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Milkshakes -->
+        <section class="menu-group" id="grp-milkshakes">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1662192511709-e75d67367638?q=80&w=1748&auto=format&fit=crop"
+                    alt="Milkshake mit Sahne" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Milkshakes</h2>
+                    <p>Cremig, kalt und voll Geschmack.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Erdbeer Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Erdbeersauce.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Himbeere Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+
+                        <p class="item-desc">Mit Cookies.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kinder Bueno Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Cookies.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Schoko Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Schokosauce.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Vanille Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Klassisch & cremig.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Banane Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Banane.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Mango Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Exotisch & süß.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Lotus Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Lotus Creme.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Oreo Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Oreo.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Karamell Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Karamell.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Pistanzien Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Kinder Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Blueberry Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Blaubeeren.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Nutella Milkshake</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Nutella.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Miss Purple Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Cookies.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Dragon Frucht Milkshake</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Cookies.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Frappés & Eiskaffee -->
+        <section class="menu-group" id="grp-frappes">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=700&auto=format&fit=crop&q=60"
+                    alt="Iced Coffee mit Sahne" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Frappés &amp; Eiskaffee</h2>
+                    <p>Kaffee, Eis und Karamell.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanish Vanilla Latte</span><span class="item-price">7,99€</span>
+                        </div>
+                        <p class="item-desc">Mit Vanille.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Americano </span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Mit Schokolade.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanish Latte </span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Starker Kaffee.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanisch Nutella Latte</span><span class="item-price">7,99
+                                €</span></div>
+                        <p class="item-desc">Mit Haselnuss.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanisch Karamell Latte</span><span class="item-price">7,99
+                                €</span></div>
+                        <p class="item-desc">Mit Haselnuss.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanisch Loutos Latte</span><span class="item-price">7,99
+                                €</span></div>
+                        <p class="item-desc">Mit Haselnuss.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanisch Mokka Latte</span><span class="item-price">7,99
+                                €</span></div>
+                        <p class="item-desc">Mit Haselnuss.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Spanisch Vanilla Latte </span><span class="item-price">7,99
+                                €</span></div>
+                        <p class="item-desc">Mit Haselnuss.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Vanilla Ice Coffee</span><span class="item-price">7,99 €</span>
+                        </div>
+                        <p class="item-desc">Vanille & Eis.</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Café -->
+        <section class="menu-group" id="grp-cafe">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop"
+                    alt="Kaffee Spezialitäten" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Café & Kaffee</h2>
+                    <p>Heiß, aromatisch, frisch zubereitet.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+
+            <div class="menu-content">
+                <div class="menu-items">
+
+                    <!-- 12 Artikel -->
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Espresso</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Kräftig & intensiv.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Doppel Espresso</span><span class="item-price">4,99 €</span></div>
+                        <p class="item-desc">Doppelte Stärke.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Espresso Affogato</span><span class="item-price">4,99 €</span></div>
+                        <p class="item-desc">Kräftig & intensiv.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Espresso macchiato</span><span class="item-price">3,10 €</span>
+                        </div>
+                        <p class="item-desc">Kräftig & intensiv.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Espresso Mit Kundenitsmilch</span><span class="item-price">3,10
+                                €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Americano</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Espresso + Wasser.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cappuccino</span><span class="item-price"> 3,50€</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Latte macchiato</span><span class="item-price">4,50 €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Latte kaffe</span><span class="item-price">4,50 €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kaffe Crema</span><span class="item-price">2.50 €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Restreto</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Klarer kaffe</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Türkischer Kaffe mit Kardamon</span><span class="item-price">2,99
+                                €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Türkischer Kaffe ohne Kardamon</span><span class="item-price">2,99
+                                €</span></div>
+                        <p class="item-desc">Mit Milchschaum.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crêpes -->
+        <section class="menu-group" id="grp-crepes">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1693857230386-ce2e29512ab0?q=80&w=774&auto=format&fit=crop"
+                    alt="Crêpes mit Toppings" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Crêpes</h2>
+                    <p>Frisch gebacken, süß belegt.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Nutella</span><span class="item-price">8,50€</span></div>
+                        <p class="item-desc">Mit Nutella.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Erdbeere</span><span class="item-price">9,99 €</span></div>
+                        <p class="item-desc">Mit Erdbeeren.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Banane</span><span class="item-price">9,99€</span></div>
+                        <p class="item-desc">Banane & Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Lotus</span><span class="item-price">8,99 €</span></div>
+                        <p class="item-desc">Mit Lotus Creme.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Kinder bueno</span><span class="item-price">8,99€</span></div>
+                        <p class="item-desc">Mit Kinder Schoko.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Ananas</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Weiße Schokolade.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Blueberry</span><span class="item-price">8,50 €</span></div>
+                        <p class="item-desc">Mit Blaubeeren.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Mango</span><span class="item-price">9,99 €</span></div>
+                        <p class="item-desc">Mit Mango.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Fetttuccine</span><span class="item-price">10,49 €</span>
+                        </div>
+                        <p class="item-desc">Apfel & Zimt.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe sushi</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">Mit Kokos.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Pistazien</span><span class="item-price">9,99 €</span></div>
+                        <p class="item-desc">Mit Pistaziencreme.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Früchte</span><span class="item-price">10,49 €</span></div>
+                        <p class="item-desc">Tropische Früchte.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Oreo</span><span class="item-price">8,99 €</span></div>
+                        <p class="item-desc">Mit Oreo Keksen.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Crêpe Kitkat</span><span class="item-price">8,99 €</span></div>
+                        <p class="item-desc">Mit Kitkat Schokolade.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bubble Waffeln Becher -->
+        <section class="menu-group" id="grp-waffeln">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1568051243851-f9b136146e97?q=80&w=870&auto=format&fit=crop"
+                    alt="Frische Waffeln" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Waffeln</h2>
+                    <p>Frisch gebacken</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+
+            <div class="menu-content">
+                <div class="menu-items">
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble KitKat Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Puderzucker.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Nutella Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Nutella.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Erdbeere Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Erdbeeren & Sahne.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Lotus Becher</span><span class="item-price">9,99€</span>
+                        </div>
+                        <p class="item-desc">Mit Lotus Creme.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Banane Becher</span><span class="item-price"> 9,99€</span>
+                        </div>
+                        <p class="item-desc">Banane & Schokolade.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Kinder Bueno Becher</span><span class="item-price">9,99
+                                €</span></div>
+                        <p class="item-desc">Sahne nach Wunsch – mit oder ohne.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble kiwi Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Blueberry Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Blaubeeren.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Ananas Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble softice-Vanilla & schoko Becher</span><span
+                                class="item-price">9,99 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Kuchen & Süßigkeiten -->
+        <section class="menu-group" id="grp-kuchen">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1508737804141-4c3b688e2546?w=700&auto=format&fit=crop&q=60"
+                    alt="Kuchenstück auf Teller" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Kuchen &amp; Süßigkeiten</h2>
+                    <p>Täglich frisch, wechselnde Sorten.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>stück Kuchen</span><span class="item-price">6,00 €</span></div>
+                        <p class="item-desc">Jeder Stück Sorten auf Anfrage .</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Halwa-Aljaben</span><span class="item-price">1,49 €</span></div>
+                        <p class="item-desc">Pro Stück </p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Harise</span><span class="item-price">1,49 €</span></div>
+                        <p class="item-desc">Pro Stück </p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>shiebiat</span><span class="item-price">4,99 €</span></div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Warpat</span><span class="item-price">4,99€</span></div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>mschbak</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Mango Frucht kuchen</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Erdbeere Frucht kuchen</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Kiwi Frucht kuchen</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Zitrone Frucht kuchen</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Pistanzien Frucht kuchen</span><span class="item-price">9,99€</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Himbeere Frucht kuchen</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Pro Stück</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Blaubeere Frucht kuchen</span><span class="item-price">9,99
+                                €</span></div>
+                        <p class="item-desc"></p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Bubble Waffeln Becher -->
+        <section class="menu-group" id="grp-waffeln">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1568051243851-f9b136146e97?q=80&w=870&auto=format&fit=crop"
+                    alt="Frische Waffeln" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Waffeln</h2>
+                    <p>Frisch gebacken</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+
+            <div class="menu-content">
+                <div class="menu-items">
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble KitKat Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Puderzucker.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Nutella Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Nutella.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Erdbeere Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Erdbeeren & Sahne.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Lotus Becher</span><span class="item-price">9,99€</span>
+                        </div>
+                        <p class="item-desc">Mit Lotus Creme.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Banane Becher</span><span class="item-price"> 9,99€</span>
+                        </div>
+                        <p class="item-desc">Banane & Schokolade.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Kinder Bueno Becher</span><span class="item-price">9,99
+                                €</span></div>
+                        <p class="item-desc">Sahne nach Wunsch – mit oder ohne.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble kiwi Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Blueberry Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">Mit Blaubeeren.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble Ananas Becher</span><span class="item-price">9,99 €</span>
+                        </div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Bubble softice-Vanilla & schoko Becher</span><span
+                                class="item-price">9,99 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Drinks -->
+        <section class="menu-group" id="grp-drinks">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1735643434124-f51889fa1f8c?q=80&w=774&auto=format&fit=crop"
+                    alt="Softdrink mit Eiswürfeln" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2> Drinks</h2>
+                    <p>Klassische Erfrischungsgetränke.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cola</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">0.33l.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cola</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Fanta</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">0.33l.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Fanta</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Sprite</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">0.33l.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Sprite</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas </p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cola Zero</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">
+                            <o class="33l"></o>.
+                        </p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cola Zero</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Eistee Pfirsich</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Gekühlt.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Eistee Pfirsich</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas </p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Wasser still</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc">Ohne Kohlensäure 0.5l.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Wasser medium</span><span class="item-price">2,00 €</span></div>
+                        <p class="item-desc">Mit Kohlensäure 0.05l.</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Redbull Normale</span><span class="item-price">3,00 €</span></div>
+                        <p class="item-desc">250ml</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Redbull Normale</span><span class="item-price">3,50 €</span></div>
+                        <p class="item-desc">Mit Eis und Glas </p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Redbull Koks-Blubeere</span><span class="item-price">3,50 €</span>
+                        </div>
+                        <p class="item-desc">Mit Eis und Glas Kostet</p>
+                    </article>
+
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Redbull koks-blubeere</span><span class="item-price">3,00 €</span>
+                        </div>
+                        <p class="item-desc">250ml</p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Säfte -->
+        <section class="menu-group" id="grp-bio">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?q=80&w=2064&auto=format&fit=crop"
+                    alt="Frische Biosäfte" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Säfte</h2>
+                    <p>Saft.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                <div class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Saft Erdbeere</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Direktsaft.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Granataapfel Saft</span><span class="item-price">7,99€</span>
+                        </div>
+                        <p class="item-desc">Klar.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Zitrone Saft</span><span class="item-price">7,50 €</span>
+                        </div>
+                        <p class="item-desc">Trüb.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Zitrone-Mintze Saft<Zitrone-Mintze></Zitrone-Mintze></span><span
+                                class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Fruchtmix.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Mango Saft</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">Mango.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Bluahaway saft</span><span class="item-price">8,49€</span></div>
+                        <p class="item-desc">Traube.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Kirsche Saft</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Kirsche.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Himbeere Saft</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Ananas.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Blaubeere Saft</span><span class="item-price">7,99 €</span></div>
+                        <p class="item-desc">Pfirsich.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Kiwi Saft</span><span class="item-price">8,49€</span></div>
+                        <p class="item-desc">Passionsfrucht.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span> Affogato Saft</span><span class="item-price">8,49 €</span></div>
+                        <p class="item-desc">.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tee -->
+        <section class="menu-group" id="grp-tee">
+            <div class="menu-header">
+                <img class="header-media"
+                    src="https://images.unsplash.com/photo-1562547256-2c5ee93b60b7?q=80&w=882&auto=format&fit=crop"
+                    alt="Tee in Glas" loading="lazy">
+                <div class="media-overlay"></div>
+                <div class="menu-title">
+                    <h2>Tee</h2>
+                    <p>Heiß , verschiedene Sorten.</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="menu-content">
+                < class="menu-items">
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Schwarztee</span><span class="item-price"> 2,50€</span></div>
+                        <p class="item-desc">Kräftig.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Grüntee</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Belebend.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Kamilie</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Kamilie.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Cumain&Lemon</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Fruchtig.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Minztee</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Minze.</p>
+                    </article>
+                    <article class="menu-item product">
+                        <div class="item-top"><span>Granatapfeltee</span><span class="item-price">2,50 €</span></div>
+                        <p class="item-desc">Granataapfel.</p>
+                    </article>
+            </div>
+            </div>
+        </section>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>Öffnungszeiten</h3>
+                <p>Montag – Freitag: 12:00 – 22:00 Uhr</p>
+                <p>Samstag: 12:00 – 23:00 Uhr</p>
+                <p>Sonntag: 13:00 – 22:00 Uhr</p>
+            </div>
+            <div class="info-card">
+                <h3>Standort</h3>
+                <p>Y&amp;T Ice Cafe<br>Fruchthallstr. 23<br>67655 Kaiserslautern</p>
+            </div>
+            <div class="info-card">
+                <h3>Folge uns</h3>
+                <p>@yt_icecafe</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/yt_icecafe" target="_blank">Instagram</a>
+                    <a href="https://www.tiktok.com/@yt.eiscafe" target="_blank">TikTok</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-wrap">
+            <iframe class="map" loading="lazy"
+                src="https://www.google.com/maps?q=Fruchthallstr.+23+67655+Kaiserslautern&output=embed"
+                title="Karte: Y&T Ice Cafe, Fruchthallstr. 23, 67655 Kaiserslautern"></iframe>
+        </div>
+
+        <div style="text-align:center;margin:30px 0;">
+            <button class="btn" data-scroll="#menu" type="button"><span>⬆ Zur Speisekarte</span></button>
+            <button class="btn btn-outline" data-scroll="#grp-waffeln" type="button"><span>⬇ Zu den
+                    Waffeln</span></button>
+        </div>
+
+        <div style="text-align:center;margin:40px 0;">
+            <button class="btn btn-outline" data-scroll="#impressum" type="button"><span>Impressum</span></button>
+            <button class="btn btn-outline" data-scroll="#datenschutz" type="button"><span>Datenschutz</span></button>
+        </div>
+
+        <footer>
+            <p><strong>Y&amp;T Ice Cafe</strong> — Frisch zubereitet mit hochwertigen Zutaten.</p>
+        </footer>
+    </main>
+
+    <section id="impressum" style="
+  max-width:1100px;margin:40px auto;padding:32px;
+  background:rgba(10,10,15,0.9);border-radius:22px;
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 18px 40px rgba(0,0,0,0.85);
+">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#d4af37;margin-bottom:14px;">
+            Impressum
+        </h2>
+        <p style="color:#e6dcc8;line-height:1.7;">
+            <strong>Y&amp;T Ice Café</strong><br>
+            Fruchthallstr. 23<br>
+            67655 Kaiserslautern<br>
+            Deutschland<br><br>
+            Verantwortlich für den Inhalt: <strong>Y&T Ice Cafe</strong>
+        </p>
+    </section>
+
+    <section id="datenschutz" style="
+  max-width:1100px;margin:40px auto 60px;padding:32px;
+  background:rgba(10,10,15,0.9);border-radius:22px;
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 18px 40px rgba(0,0,0,0.85);
+">
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:#d4af37;margin-bottom:14px;">
+            Datenschutz
+        </h2>
+        <p style="color:#e6dcc8;line-height:1.7;margin-bottom:10px;">
+            Wir verarbeiten personenbezogene Daten ausschließlich zur Bereitstellung unseres Angebots
+            und zur Verbesserung unserer Dienstleistungen.
+        </p>
+        <p style="color:#e6dcc8;line-height:1.7;margin-bottom:10px;">
+            Beim Besuch unserer Website werden technische Daten wie Browsertyp, Uhrzeit und Gerät
+            automatisch erfasst. Diese Daten sind anonym und dienen nur statistischen Zwecken.
+        </p>
+        <p style="color:#e6dcc8;line-height:1.7;">
+            Cookies werden nur für grundlegende Funktionen und einfache Statistiken verwendet.
+            Es findet keine Weitergabe an Dritte statt.
+        </p>
+    </section>
+
+    <!-- Allergie Modal -->
+    <div id="allergyModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="allergyTitle">
+            <button class="close" type="button" aria-label="Schließen">×</button>
+            <h3 id="allergyTitle">⚠️ Wichtiger Hinweis zu Allergenen</h3>
+            <p>Bitte lies diesen Hinweis aufmerksam, bevor du bestellst:</p>
+            <ul>
+                <li>Unsere Produkte können <strong>Nüsse, Erdnüsse, Milch, Gluten, Soja, Eier</strong> und andere
+                    Allergene
+                    enthalten.</li>
+                <li>Auch bei sorgfältiger Zubereitung können <strong>Spuren von Allergenen</strong> nicht vollständig
+                    ausgeschlossen werden.</li>
+                <li>Wenn du eine Allergie oder Unverträglichkeit hast, sprich uns bitte <strong>vor der
+                        Bestellung</strong>
+                    direkt an.</li>
+            </ul>
+            <p>Unser Team hilft dir gerne, eine passende Auswahl zu finden.</p>
+            <button class="btn" type="button" id="allergyUnderstand">
+                <span>Ich habe den Hinweis verstanden</span>
+            </button>
+            <button class="btn btn-outline" type="button" id="allergyAsk">
+                <span>Ich habe Fragen – ich spreche das Team an</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner" style="display:none;">
+        <p>Wir verwenden Cookies, um die Website technisch bereitzustellen und einfache Statistiken zu erstellen. Du
+            kannst
+            zustimmen oder ablehnen.</p>
+        <div class="cookie-actions">
+            <button class="btn" id="acceptCookies" type="button"><span>Akzeptieren</span></button>
+            <button class="btn btn-outline" id="declineCookies" type="button"><span>Ablehnen</span></button>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for buttons
+        document.querySelectorAll('[data-scroll]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.querySelector(btn.getAttribute('data-scroll'));
+                if (!target) return;
+                window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+                if (btn.parentElement.classList.contains('category-nav')) {
+                    document.querySelectorAll('.category-nav button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                }
+            });
+        });
+
+        // Accordion
+        document.querySelectorAll('.menu-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const group = header.parentElement;
+                const isActive = group.classList.contains('active');
+                document.querySelectorAll('.menu-group').forEach(g => g.classList.remove('active'));
+                if (!isActive) group.classList.add('active');
+            });
+        });
+        document.querySelector('.menu-group').classList.add('active');
+
+        // Scroll reveal
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.menu-group').forEach(g => observer.observe(g));
+
+        // Allergie Modal
+        const allergyModal = document.getElementById('allergyModal');
+        const allergyBtn = document.querySelector('.allergy-btn');
+        const allergyClose = document.querySelector('.modal .close');
+        const allergyUnderstand = document.getElementById('allergyUnderstand');
+        const allergyAsk = document.getElementById('allergyAsk');
+
+        function openAllergy() {
+            allergyModal.style.display = 'flex';
+            allergyModal.setAttribute('aria-hidden', 'false');
+        }
+        function closeAllergy() {
+            allergyModal.style.display = 'none';
+            allergyModal.setAttribute('aria-hidden', 'true');
+        }
+        allergyBtn.addEventListener('click', openAllergy);
+        allergyClose.addEventListener('click', closeAllergy);
+        allergyUnderstand.addEventListener('click', closeAllergy);
+        allergyAsk.addEventListener('click', closeAllergy);
+        allergyModal.addEventListener('click', e => { if (e.target === allergyModal) closeAllergy(); });
+
+        // Auto open allergy on load
+        window.addEventListener('load', () => {
+            setTimeout(openAllergy, 400);
+        });
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookieBanner');
+        const consent = localStorage.getItem('yt_cookie_consent');
+        if (!consent) { cookieBanner.style.display = 'flex'; }
+        document.getElementById('acceptCookies').onclick = () => {
+            localStorage.setItem('yt_cookie_consent', 'accepted');
+            cookieBanner.style.display = 'none';
+        };
+        document.getElementById('declineCookies').onclick = () => {
+            localStorage.setItem('yt_cookie_consent', 'declined');
+            cookieBanner.style.display = 'none';
+        };
+
+        // Produkt-Klick Animation (Bounce)
+        document.querySelectorAll('.product').forEach(item => {
+            item.addEventListener('click', () => {
+                item.style.transform = "scale(0.94)";
+                setTimeout(() => { item.style.transform = "scale(1)"; }, 150);
+            });
+        });
+    </script>
+</body>
+
+</html>
